@@ -66,7 +66,6 @@ func main() {
 			conn.Write([]byte("JOIN " + ircBot.channel + "\r\n"))
 		}
 		if strings.Contains(line, ":") {
-
 			st := strings.Trim(line, "JOIN :#channel")
 			ss := strings.Split(st, "!")[0]
 			fmt.Fprintf(conn, "PRIVMSG "+ircBot.channel+" :Добро Пожаловать "+ss+" \r\n")
