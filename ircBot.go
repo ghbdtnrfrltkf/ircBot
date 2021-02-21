@@ -21,9 +21,9 @@ type Server struct {
 }
 
 var NewBot = Bot{
-	nick:    "simple_bot",
-	channel: "#channel",
-	user:    "simple_bot",
+	nick:    "WelcomeBot",
+	channel: "#ru",
+	user:    "WelcomeBot",
 }
 
 var NewServer = Server{
@@ -59,16 +59,18 @@ func main() {
 			break // break loop on errors
 		}
 		if strings.HasPrefix(line, "PING :") {
-			PongKey := strings.Trim(line, "PING :")
-			conn.Write([]byte("PONG :" + PongKey))
+			pongKey := strings.Trim(line, "PING :")
+			conn.Write([]byte("PONG :" + pongKey + "\r\n"))
 		}
 		if strings.Contains(line, "REGISTER") {
 			conn.Write([]byte("JOIN " + ircBot.channel + "\r\n"))
 		}
-		if strings.Contains(line, ":") {
-			st := strings.Trim(line, "JOIN :#channel")
+		if strings.Contains(line, "JOIN #ru") {
+			st := strings.Trim(line, ":")
 			ss := strings.Split(st, "!")[0]
-			fmt.Fprintf(conn, "PRIVMSG "+ircBot.channel+" :Добро Пожаловать "+ss+" \r\n")
+			if ss != "WelcomeBot" {
+				fmt.Fprintf(conn, "PRIVMSG "+ircBot.channel+" :Добро Пожаловать "+ss+" \r\n")
+			}
 		}
 
 		fmt.Printf("%s\n", line)
