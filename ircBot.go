@@ -53,16 +53,14 @@ func main() {
 	for {
 		line, err := tp.ReadLine()
 		if err != nil {
-			break // break loop on errors
+			break // break Loop on errors
 		}
 		if strings.HasPrefix(line, "PING :") {
 			pongKey := strings.Trim(line, "PING :")
 			conn.Write([]byte("PONG :" + pongKey + "\r\n"))
 		}
-		// if strings.Contains(line, "REGISTER") {
-		// conn.Write([]byte("JOIN " + ircBot.channel + "\r\n"))
-		// }
-		if strings.Contains(line, "JOIN :#ru") {
+	
+		if strings.Contains(line, "JOIN #ru") {
 			st := strings.Trim(line, ":")
 			ss := strings.Split(st, "!")[0]
 			if ss != "WelcomeBot" {
